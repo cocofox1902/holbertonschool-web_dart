@@ -3,7 +3,8 @@ class User {
   int age;
   double height;
   String toJson() {
-    return '{"name": $name, "age": $age, "height": $height}';
+    return '{name: $name, age: $age, height: $height}';
   }
+
   User({required this.name, required this.age, required this.height});
 }
