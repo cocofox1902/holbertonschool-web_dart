@@ -1,17 +1,18 @@
-import "package:http/http.dart" as http;
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-printBbCharacters() async {
+Future<void> printRmCharacters() async {
   try {
-    final res = await http.get(
-      Uri.parse('https://rickandmortyapi.com'),
-    );
-    var json = jsonDecode(res.body);
-
-    for (var idx = 0; idx < json.length; idx++) {
-      print("${json[idx]['name']}");
+    final response =
+        await http.get(Uri.parse('https://rickandmortyapi.com/api/character'));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final characters = data['results'] as List<dynamic>;
+      for (final character in characters) {
+        print(character['name']);
+      }
     }
   } catch (err) {
-    print('error caught: $err');
+    print('error caught: ${err}');
   }
 }
